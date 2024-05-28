@@ -1,11 +1,6 @@
 ﻿Imports System.Data.OleDb
-Public Class Form1
-
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-
-    Private Sub btnConectar_Click(sender As Object, e As EventArgs) Handles btnConectar.Click
+Public Class frmGrafica
+    Private Sub frmGrafica_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim kbum As New OleDbConnection("Provider=Microsoft.Jet.Oledb.4.0; Data Source=E:\Programacion\2 Parcial\Codigos\Visual Studio\Sistema Matricula\Base de datos\Matricula.mdb")
         Try
             kbum.Open()
@@ -15,14 +10,14 @@ Public Class Form1
             Dim waos As New OleDbDataAdapter(query, kbum)
             Dim vs As New DataTable
             waos.Fill(vs)
-            DataGridView1.DataSource = vs
+
+            Chart1.Series("Series1").XValueMember = "Nombre"
+            Chart1.Series("Series1").YValueMembers = "Edad"
+            Chart1.DataSource = vs
+
 
         Catch ex As Exception
             MsgBox("No se conecto por: " & ex.Message)
         End Try
-    End Sub
-
-    Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
-        frmBuscar.Show()
     End Sub
 End Class
